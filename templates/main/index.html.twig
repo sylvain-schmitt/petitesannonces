@@ -11,5 +11,37 @@
             </button> 
         </div>
     {% endfor %}
+    	<div class="container">
+        <div class="row">
+			{% for annonce in annonces %}
+            <div class="col-6">
+				<div class="card mb-3 mt-4 align-center" style="max-width: 700px;">
+					<div class="row no-gutters">
+						<div class="col-md-4">
+							{# <img src="{{ asset('uploads/images/annonces/' ~ annonce.images[0].name)|imagine_filter('square') }}" class="card-img" alt="{{ annonce.title }}"> #}
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">
+									<a href="{{ path('annonces_details', {slug: annonce.slug}) }}">{{ annonce.title }}</a>
+								</h5>
+								<p class="card-text">Catégorie :
+									<small>{{ annonce.categories.name }}</small>
+								</p>
+								<p class="card-text">{{ annonce.price}} €</p>
+								<p class="card-text">
+									<small class="text-muted">Publié le
+										{{annonce.createdAt | date ('d/m/Y à H:i')}}
+										par
+										<strong>{{annonce.users.firstname}}</strong>
+									</small>
+								</p>
+						</div>
+					</div>
+				</div>
+		    </div>
+        </div>
+		{% endfor %}
+        </div>
 </div>
 {% endblock %}
