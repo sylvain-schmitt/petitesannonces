@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="left ">
+        <ul>
+ 
+             <a href="{{ path('admin_categories_home') }}"> 
+                <li class="item-menu">
+                    <i class="fa fa-tags " aria-hidden="true"></i> 
+                    <span class="menu">Catégories</span>
+                </li>
+            </a>
+            <a href="{{ path('admin_annonces_home') }}"> 
+                <li class="item-menu">
+                    <i class="far fa-check-circle " aria-hidden="true"></i>
+                    <span class="menu">Annonces</span>
+                </li>
+            </a>    
+        </ul>
+    </div> <!-- end left -->
+    <div class="container text-center py-4 ">
+    <div class="content">
+    
+        <h1>Espace administration</h1>
+        <p>Bienvenu sur votre espace administrateur</p>
+    </div>
+     </div>
+    </div>
+	</div>
+</div>
+{% endblock %}

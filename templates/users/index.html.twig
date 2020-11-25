@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de
+	{{ app.user.firstname }}
+	{{ app.user.name }}
+{% endblock %}
+
+{% block body %}
+
+			<div class="container py-4">
+                {% for message in app.flashes('message') %}
+                    <div class="mt-4 alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> 
+                    </div>
+                {% endfor %}
+				<div class="content">
+					{% for message in app.flashes('message') %}
+						<div class="alert alert-success" role="alert">{{ message }}</div>
+					{% endfor %}
+					<h1>Profil de
+						{{ app.user.firstname }}
+                    </h1>
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<p>Nom :</p>
+								<p>Prénom :</p>
+								<p>Email :</p>
+							</div>
+							<div class="col-sm">
+								<p>{{ app.user.name }}</p>
+								<p>{{ app.user.firstname }}</p>
+								<p>{{ app.user.email }}</p>
+							</div>
+                            <div class="container"></div>
+							<h1>Annonces de
+								{{ app.user.firstname }}
+								{{ app.user.name }}
+								({{ app.user.annonces|length }})</h1>
+							<div class="container">
+								<div class="row">
+									{% for annonce in app.user.annonces %}
+										<div class="col-4">
+											<p>Titre :</p>
+										</div>
+										<div class="col-4">
+											<p>{{ annonce.title }}</p>
+										</div>
+										<div class="col-4">
+											 <a class="btn btn-primary" href="{{ path('users_annonces_edit', {id: annonce.id}) }}" role="button">Modifier l'annonce</a> 
+											<a href="{{path('users_annonces_supprimer', {id: annonce.id})}}" class="btn btn-primary modal-trig" data-toggle="modal" data-target="#modal-delete" data-id="{{annonce.id}}" data-titre="{{annonce.title}}">Suppimer</a>
+										</div>
+
+									{% endfor %}
+								</div>
+							</div>
+							<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modal-deleteLabel">Supprimer une annonce</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body"></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+											<a href="" type="button" class="btn btn-primary">valider</a>
+										</div>
+							</div>
+						</div>
+					</div>
+						</div>
+					</div>
+		{% endblock %}

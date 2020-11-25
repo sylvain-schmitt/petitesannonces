@@ -1,0 +1,11 @@
+{% if app.request.attributes.get('_route') == 'users_annonces_edit' %}
+			<h1>Une annonce vient d'etre modifier</h1>
+		{% else %}
+			<h1>Nouvelle annonce</h1>
+		{% endif %}
+
+<p>Afin de valider votre annonce merci de suivre le lien ci-dessous</p>
+
+
+
+<a href="https://localhost:8000/users/activer/{{id}}" >valider</a>

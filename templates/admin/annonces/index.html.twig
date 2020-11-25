@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer les annonces
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="left ">
+				<ul>
+					<a href="{{ path('admin_home') }}">
+						<li class="item-menu">
+							<i class="fa fa-home " aria-hidden="true"></i>
+							<span class="menu">Admin</span>
+						</li>
+					</a>
+                    <a href="{{ path('admin_categories_home') }}"> 
+                        <li class="item-menu">
+                            <i class="fa fa-tags " aria-hidden="true"></i> 
+                            <span class="menu">Catégories</span>
+                        </li>
+                    </a>
+				</ul>
+			</div>
+			<!-- end left -->
+			<div class="container ">
+				<div class="content">
+                    {% for message in app.flashes('message') %}
+                        <div class="mt-4 alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button> 
+                        </div>
+                    {% endfor %}
+					<h1>Gerer les annonces</h1>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Titre</th>
+								<th scope="col">Date</th>
+								<th scope="col">Active</th>
+								<th scope="col">Voir</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for annonce in annonces %}
+								<tr>
+									<th scope="row">{{annonce.id}}</th>
+									<td>{{annonce.title}}</td>
+									<td>{{annonce.createdAt|date}}</td>
+									<td>
+										<div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" {{ (annonce.active) ? 'checked' : ''}} data-id="{{annonce.id}}" id="{{annonce.id}}">
+											<label class="custom-control-label" for="{{annonce.id}}"></label>
+										</div>
+									</td>
+									<td>
+										{# <a href="{{ path('annonces_details', {slug: annonce.slug})}}" > #}
+											Voir
+										</a>
+									</td>
+									<td>
+									<a href="{{annonce.id}}" class="btn btn-primary modal-trigger" data-toggle="modal" data-target="#modal-delete" data-id="{{annonce.id}}" data-titre="{{annonce.title}}">
+											Suppimer
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modal-deleteLabel">Supprimer une annonce</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body"></div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+									<a href="" type="button" class="btn btn-primary">valider</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}{% endblock %}

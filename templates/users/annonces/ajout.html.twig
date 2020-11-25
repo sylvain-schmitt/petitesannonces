@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une annonce{% endblock %}
+
+{% block body %}
+	<div class="container mt-4 mb-5">
+		{% if app.request.attributes.get('_route') == 'users_annonces_edit' %}
+			<h1>Modifier une annonce</h1>
+		{% else %}
+			<h1>Ajouter une annonce</h1>
+			<br>
+		{% endif %}
+		{{ form_start(form) }}
+		<p>Titre de l'annonce</p>
+		{{ form_widget(form.title) }}
+		<br><br>
+		<p>Déscription</p>
+		{{ form_widget(form.content) }}
+		<br><br>
+		<p>Catégorie</p>
+		{{ form_widget(form.categories) }}
+		<br><br>
+		<p>Prix</p>
+		{{ form_widget(form.price) }}
+		<br><br>
+		<button type="submit" class="btn btn-primary">Valider</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

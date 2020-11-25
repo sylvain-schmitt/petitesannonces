@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une catégorie
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="left ">
+				<ul>
+					<a href="{{ path('admin_home') }}">
+						<li class="item-menu">
+							<i class="fa fa-home " aria-hidden="true"></i>
+							<span class="menu">Admin</span>
+						</li>
+					</a>
+					<a href="{{ path('admin_categories_home') }}">
+						<li class="item-menu">
+							<i class="fa fa-tags " aria-hidden="true"></i>
+							<span class="menu">Gerer Catégories</span>
+						</li>
+					</a>
+				</ul>
+			</div>
+			<!-- end left -->
+			<div class="container ">
+				<div class="content">
+					{% if app.request.attributes.get('_route') == 'admin_categories_modifier' %}
+						<h1>Modifier une catégories</h1>
+					{% else %}
+						<h1>Ajouter une catégorie</h1>
+					{% endif %}
+					{{ form_start(form) }}
+					<br>
+					<p>Nom :</p>
+					{{ form_widget(form.name) }}
+					<br>
+					<button type="submit" class="btn btn-primary">Valider</button>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

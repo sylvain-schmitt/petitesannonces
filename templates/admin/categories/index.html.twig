@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer les categories{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="left ">
+        <ul>
+            <a href="{{ path('admin_home') }}">
+                <li class="item-menu">
+                    <i class="fa fa-home " aria-hidden="true"></i> 
+                    <span class="menu">Admin</span>
+                </li>
+            </a> 
+            <a href="ajout">
+                <li class="item-menu">
+                    <i class="fas fa-tag " aria-hidden="true"></i>
+                    <span class="menu">Ajouter une catégorie</span>
+                </li>
+            </a>
+            <a href="{{ path('admin_annonces_home') }}"> 
+                <li class="item-menu">
+                    <i class="far fa-check-circle " aria-hidden="true"></i>
+                    <span class="menu">Annonces</span>
+                </li>
+            </a>    
+        </ul>
+    </div> <!-- end left -->
+    <div class="container py-4 ">
+    <div class="content">
+    {% for message in app.flashes('message') %}
+        <div class="mt-4 alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button> 
+        </div>
+    {% endfor %}
+    
+        <h1>Gerer les categories</h1>
+        <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for categorie in categories %}
+    <tr>
+      <th scope="row">{{categorie.id}}</th>
+      <td>{{categorie.name}}</td>
+      <td class="text-center">
+      <a class="btn btn-primary" href="{{ path("admin_categories_modifier", {id: categorie.id}) }}" role="button">modifier</a> 
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+     </div>
+    </div>
+	</div>
+</div>
+{% endblock %}
