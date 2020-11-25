@@ -3,10 +3,62 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
         {% block stylesheets %}{% endblock %}
+		<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     </head>
     <body>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="{{ path('app_home') }}">Récif Annonces</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					{% if is_granted('ROLE_USER') %}
+						<li class="nav-item">
+							{# <a class="nav-link" href="{{ path('users_annonces_ajout') }}">Créer une annonces</a> #}
+						</li>
+						<li class="nav-item">
+							{# <a class="nav-link" href="{{ path('users') }}">Mon profil</a> #}
+						</li>
+
+						{% else %}
+					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item">
+							{# <a class="nav-link" href="{{ path('admin_home') }}">Admin</a> #}
+						</li>
+
+						{% else %}
+					{% endif %}
+				</ul>
+				<div class="navbar-nav ml-auto">
+					{% if not app.user %}
+						<li class="nav-item ">
+							<a class="nav-link" href="{{ path('app_login') }}">connexion</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+						</li>
+					{% else %}
+						 <li class="nav-item">
+          					<a class="nav-link" href="#"><i class="far fa-user"></i> {{app.user.firstname}}</a>
+        				</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_logout') }}">déconnexion</a>
+						</li>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
         {% block body %}{% endblock %}
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         {% block javascripts %}{% endblock %}
+		<script src="{{ asset('js/scripts.js') }}"></script>
     </body>
 </html>

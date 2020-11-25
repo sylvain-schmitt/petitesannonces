@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Petites Annonces{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    {% for message in app.flashes('success') %}
+        <div class="mt-4 alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button> 
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
