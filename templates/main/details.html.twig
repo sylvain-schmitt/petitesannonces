@@ -6,34 +6,33 @@
 {% block stylesheets %}{% endblock %}
 {% block body %}
 	<div class="container mt-5 mb-5">
-<div class="row">
-	<div class="col-md-8">
-
-		</div>
-	<div class="col-md-4">
-		<div class="card text-center" >
-			<div class="row no-gutters">
-				<div class="col-md-4">
-				<img src="{{ asset('img/user.png') }}" style="max-width: 100px;" class="card-img" alt="{{ annonce.title }}">
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">
-							{{annonce.users.firstname}}
-						</h5>
-					</div>
-				</div>
-					<div class="card-body">
-						<div class="container" style="margin-top: 50px;">
-						<p>{{ annonce.price}} €</p>
+		<div class="row">
+			<div class="col-md-8">
+				<!--carrousel-->
+			</div>
+			<div class="col-md-4">
+				<div class="card text-center">
+					<div class="row no-gutters">
+						<div class="col-md-4">
+							<img src="{{ asset('img/user.png') }}" style="max-width: 100px;" class="card-img" alt="{{ annonce.title }}">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">
+									{{annonce.users.firstname}}
+								</h5>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="container" style="margin-top: 50px;">
+								<p>{{ annonce.users.username}}</p>
+								<p>{{ annonce.users.phone}}</p>
+							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
-	</div>
-
-
 		<div class="card mb-3 mt-4 align-center" style="max-width: 1200px;">
 			<div class="row no-gutters">
 				<div class="col-md-4">
@@ -44,10 +43,9 @@
 						<h5 class="card-title">
 							{{ annonce.title }}
 						</h5>
-						<p class="card-text">Catégorie :
-							<small>{{ annonce.categories.name }}</small>
+						<p class="card-text">
+							<strong>{{ annonce.price }}</strong>
 						</p>
-						
 						<p class="card-text">{{ annonce.content|raw }}</p>
 						<p class="card-text">
 							<small class="text-muted">Publié le
@@ -59,10 +57,5 @@
 			</div>
 		</div>
 	</div>
-</div>
-{% endblock %}
-{% block javascripts %}
-<script>
-    document.querySelector("#annonce_contact_title").value = "{{ annonce.title|raw }}" 
-</script>
-{% endblock %}
+</div>{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -68,6 +68,7 @@ class UsersController extends AbstractController
      */
     public function editAnnonce(Annonces $annonce, Request $request, MailerInterface $mailer)
     {
+        $this->denyAccessUnlessGranted('EDIT', $annonce);
         $form = $this->createForm(AnnoncesType::class, $annonce);
 
         $form->handleRequest($request);
@@ -103,7 +104,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("users/activer/{id}", name="users_activer")
+     * @Route("/users/activer/{id}", name="users_activer")
      */
     public function activer(Annonces $annonce)
     {
@@ -123,6 +124,7 @@ class UsersController extends AbstractController
      */
     public function supprimer(Annonces $annonce)
     {
+        $this->denyAccessUnlessGranted('DELETE', $annonce);
         $em = $this->getDoctrine()->getManager();
         $em->remove($annonce);
         $em->flush();
