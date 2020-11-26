@@ -8,8 +8,45 @@
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-md-8">
-				<!--carrousel-->
+			{# Début carousel #}
+		<div id="carouselExampleIndicators" style="max-width: 700px;" class="carousel slide" data-ride="carousel">
+			{# fleches #}
+			<ol class="carousel-indicators">
+				{% for image in annonce.images %}
+					{% if loop.first %}
+						{% set active = 'active' %}
+					{% else %}
+						{% set active = " " %}
+					{% endif %}
+					<li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" class="{{ active }}"></li>
+				{% endfor %}
+			</ol>
+			{# Images pour le carousel #}
+			<div class="carousel-inner">
+				{% for image in annonce.images %}
+					{% if loop.first %}
+						{% set active = 'active' %}
+					{% else %}
+						{% set active = " " %}
+					{% endif %}
+					<div class="carousel-item {{ active }}">
+					<img  src="{{ asset('uploads/images/annonces/' ~ image.name)|imagine_filter('banniere') }}" class="d-block w-100" alt="{{ annonce.title }}">
+					</div>
+					{% else %}
+					<img src="{{ asset('uploads/images/no-photo.png')|imagine_filter('banniere') }}" class="card-img" alt="{{ annonce.title }}">
+				{% endfor %}
 			</div>
+			{# Chevron #}
+			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		{# Fin carousel #}			</div>
 			<div class="col-md-4">
 				<div class="card text-center">
 					<div class="row no-gutters">
@@ -44,7 +81,7 @@
 							{{ annonce.title }}
 						</h5>
 						<p class="card-text">
-							<strong>{{ annonce.price }}</strong>
+							<strong>{{ annonce.price }}</strong> €
 						</p>
 						<p class="card-text">{{ annonce.content|raw }}</p>
 						<p class="card-text">

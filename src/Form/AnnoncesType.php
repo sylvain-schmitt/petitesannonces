@@ -20,17 +20,16 @@ class AnnoncesType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('content', CKEditorType::class)
-            //  On ajoute le champ "images" dans le formulaire
-            //  Il n'est pas lié à la base de données (mapped à false)
-            // ->add('images', FileType::class, [
-            //     'label' => false,
-            //     'multiple' => true,
-            //     'mapped' => false,
-            //     'required' => false
-            // ])
+            
+            ->add('images', FileType::class, [
+                'label' => 'Images',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+                ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class
-            ])
+                ])
             ->add('price', NumberType::class)
             ;
     }
