@@ -4,9 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Annonces;
 use App\Repository\AnnoncesRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin/annonces", name="admin_annonces_")
@@ -17,11 +18,14 @@ class AnnoncesController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(AnnoncesRepository $annoncesRepo)
+    public function index(AnnoncesRepository $annoncesRepo, Request $request)
     {
-        return $this->render('admin/annonces/index.html.twig', [
-            'annonces' => $annoncesRepo->findAll(),
-        ]);
+        $limit = 10;
+        $page = (int)$request->query->get("page", 1);
+        $annonces = $annoncesRepo->getAdminPaginatedAnnonces($page, $limit);
+        $total = $annoncesRepo->getAdminTotalAnnonces();
+
+        return $this->render('admin/annonces/index.html.twig', compact('annonces', 'total', 'limit', 'page'));
     }
 
     /**

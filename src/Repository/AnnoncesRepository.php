@@ -19,6 +19,61 @@ class AnnoncesRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonces::class);
     }
 
+    /**
+     * Return all anonces per page
+     * @return void
+     */
+    public function getPaginatedAnnonces($page, $limit){
+        $query = $this->createQueryBuilder('a')
+            ->where('a.active = 1')
+            ->orderBy('a.created_at', 'DESC')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ;
+            return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Return all anonces per page
+     * @return void
+     */
+    public function getAdminPaginatedAnnonces($page, $limit){
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'DESC')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ;
+            return $query->getQuery()->getResult();
+    }
+
+    /**
+     * return number of annonces
+     * @return void
+     */
+    public function getTotalAnnonces(){
+
+        $query = $this->createQueryBuilder('a')
+            ->select('count(a)')
+            ->where('a.active = 1')
+            ;
+            return $query->getQuery()->getSingleScalarResult();
+
+
+    }
+
+      /**
+     * return number of annonces
+     * @return void
+     */
+    public function getAdminTotalAnnonces(){
+
+        $query = $this->createQueryBuilder('a')
+            ->select('count(a)')
+            ;
+            return $query->getQuery()->getSingleScalarResult();
+
+
+    }
     // /**
     //  * @return Annonces[] Returns an array of Annonces objects
     //  */

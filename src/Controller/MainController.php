@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\AnnoncesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends AbstractController
@@ -12,18 +13,19 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(AnnoncesRepository $annoncesRepo)
+    public function index(AnnoncesRepository $annoncesRepo, Request $request)
     {
-        $annonces = $annoncesRepo->findBy(['active' => true], ['created_at' => 'desc'], 10);
-
+        
+        $limit = 10;
+        $page = (int)$request->query->get("page", 1);
+        $annonces = $annoncesRepo->getPaginatedAnnonces($page, $limit);
+        $total = $annoncesRepo->getTotalAnnonces();
 
         if (!$annonces) {
             throw new NotFoundHttpException('Aucunes annonces trouvée');
         }
 
-        return $this->render('main/index.html.twig', [
-            'annonces' => $annonces,
-        ]);
+        return $this->render('main/index.html.twig', compact('annonces', 'total', 'limit', 'page'));
     }
 
     /**

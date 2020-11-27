@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnnoncesRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -99,6 +100,8 @@ class Annonces
     }
 
 
+
+
     public function getContent(): ?string
     {
         return $this->content;
@@ -115,6 +118,7 @@ class Annonces
     {
         return $this->created_at;
     }
+
 
 
     public function getActive(): ?bool
