@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "dompdf/dompdf": "^0.8.6",
         "friendsofsymfony/ckeditor-bundle": "^2.2",
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^3.0",

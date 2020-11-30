@@ -1,0 +1,45 @@
+{% extends "base-pdf.html.twig" %}
+{% block title %}{{annonce.title}}{% endblock %}
+{% block body %}
+    <h1 style="text-align: center;">{{annonce.title}}</h1>
+    <br><br>
+        <h2 style="text-align: center;">Coordonées de l'annonceur</h2>
+        <br>
+    <table style="width: 100%;" border=1>
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{annonce.users.firstname}}</td>
+                <td>{{ annonce.users.username}}</td>
+                <td>{{ annonce.users.phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <h2 style="text-align: center;">Photo(s) de l'annonce</h2>
+    <br>
+    {% for image in annonce.images %}
+                <img style="width: 200px;" src="{{ asset('uploads/images/annonces/' ~ image.name)|imagine_filter('banniere') }}"  alt="{{ annonce.title }}">
+			{% else %}
+				<img style="width: 200px;" src="{{ asset('uploads/images/no-photo.png')|imagine_filter('banniere') }}"  alt="{{ annonce.title }}"> 
+    {% endfor %}
+    <br><br>
+    <h2 style="text-align: center;">Détail de l'annonce</h2>
+		<div >
+			<p style="text-align: center;">
+				<strong>{{ annonce.price }}</strong> €
+			</p>
+			<p>{{ annonce.content|raw }}</p>
+			<p >
+				<small class="text-muted">Publié le
+					{{annonce.createdAt | date ('d/m/Y à H:i')}}
+				</small>
+			</p>
+		</div>
+{% endblock %}
