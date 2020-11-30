@@ -13,6 +13,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.2",
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^3.0",
+        "karser/karser-recaptcha3-bundle": "^0.1.13",
         "liip/imagine-bundle": "^2.3",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",

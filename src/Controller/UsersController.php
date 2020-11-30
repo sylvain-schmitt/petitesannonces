@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Images;
 use App\Entity\Annonces;
 use App\Form\AnnoncesType;
+use App\Repository\AnnoncesRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -17,9 +18,15 @@ class UsersController extends AbstractController
     /**
      * @Route("/users", name="users")
      */
-    public function index()
+    public function index(AnnoncesRepository $annoncesRepo, Request $request)
     {
-        return $this->render('users/index.html.twig');
+        $limit = 5;
+        $page = (int)$request->query->get("page", 1);
+        $user = $this->getUser();
+        $annonces = $annoncesRepo->getUserPaginatedAnnonces($user, $page, $limit);
+        $total = $annoncesRepo->getUserTotalAnnonces($user);
+
+       return $this->render('users/index.html.twig',compact('annonces', 'total', 'limit', 'page'));
     }
 
     /**

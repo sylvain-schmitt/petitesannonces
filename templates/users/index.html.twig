@@ -38,10 +38,10 @@
 							<h1>Annonces de
 								{{ app.user.firstname }}
 								{{ app.user.name }}
-								({{ app.user.annonces|length }})</h1>
+								({{ total }})</h1>
 							<div class="container">
 								<div class="row">
-									{% for annonce in app.user.annonces %}
+									{% for annonce in annonces %}
 										<div class="col-4">
 											<p>Titre :</p>
 										</div>
@@ -54,6 +54,40 @@
 										</div>
 
 									{% endfor %}
+								</div>
+									<div class="container ">
+										<div class="row justify-content-center">
+										<nav aria-label="...">
+											<ul class="pagination">
+												<li class="{{ (page == 1) ? 'page-item disabled' : '' }}">
+													<a class="page-link" href="?page=1">
+														<i class="fas fa-step-backward"></i>
+													</a>
+												</li>    
+												<li class="{{ (page == 1) ? 'page-item disabled' : '' }}">
+													<a class="page-link" href="{{ (page > 1) ? '?page=' ~ (page - 1) : '' }}">
+														<i class="fas fa-angle-left"></i>
+													</a>
+												</li>
+												{% set pages = (total / limit)|round(0, 'ceil') %}
+												{% for item in 1..pages %}
+													<li class="{{ (page == item) ? 'page-item active' : '' }}">
+														<a class="page-link" href="?page={{ item }}">{{ item }}</a>
+													</li>
+												{% endfor %}
+												<li class="{{ (page == pages) ? 'page-item disabled' : '' }}">
+													<a class="page-link" href="{{ (page < pages) ? '?page=' ~ (page + 1) : '' }}">
+														<i class="fas fa-angle-right"></i>
+													</a>
+												</li>
+												<li class="{{ (page == pages) ? 'page-item disabled' : '' }}">
+													<a class="page-link" href="?page={{ pages }}">
+														<i class="fas fa-step-forward"></i>
+													</a>
+												</li>
+											</ul>		
+										</nav>
+									</div>
 								</div>
 							</div>
 							<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">

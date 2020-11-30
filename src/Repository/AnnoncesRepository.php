@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Annonces;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Annonces|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +17,7 @@ class AnnoncesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Annonces::class);
+
     }
 
     /**
@@ -37,6 +38,22 @@ class AnnoncesRepository extends ServiceEntityRepository
      * Return all anonces per page
      * @return void
      */
+    public function getUserPaginatedAnnonces($user, $page, $limit){
+       $query = $this->createQueryBuilder('a')
+            ->where('a.users = :users')
+            ->andWhere('a.active = 1')
+            ->setParameter(':users', $user)
+            ->orderBy('a.created_at', 'DESC')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ;
+            return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Return all anonces per page
+     * @return void
+     */
     public function getAdminPaginatedAnnonces($page, $limit){
         $query = $this->createQueryBuilder('a')
             ->orderBy('a.created_at', 'DESC')
@@ -45,6 +62,7 @@ class AnnoncesRepository extends ServiceEntityRepository
             ;
             return $query->getQuery()->getResult();
     }
+
 
     /**
      * return number of annonces
@@ -57,11 +75,24 @@ class AnnoncesRepository extends ServiceEntityRepository
             ->where('a.active = 1')
             ;
             return $query->getQuery()->getSingleScalarResult();
-
-
     }
 
-      /**
+    /**
+     * return number of annonces
+     * @return void
+     */
+    public function getUserTotalAnnonces($user){
+
+        $query = $this->createQueryBuilder('a')
+            ->select('count(a)')
+            ->where('a.users = :users')
+            ->andWhere('a.active = 1')
+            ->setParameter(':users', $user)
+            ;
+            return $query->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * return number of annonces
      * @return void
      */
