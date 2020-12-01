@@ -8,7 +8,10 @@ use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,7 +30,22 @@ class AnnoncesType extends AbstractType
                 'label' => 'Images',
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'constraints' => [
+                    new Count(['max' => 5]),
+                    new All([
+                        new File([
+                            'maxSize' => '2048k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png'
+                            ],
+                        ])
+                    ])
+                ],
+                'attr' => [
+                    'accept' => '.jpg, .jpeg, .png'
+                ],                
                 ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class

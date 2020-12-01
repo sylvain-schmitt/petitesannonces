@@ -46,4 +46,22 @@
 	</div>
 {% endblock %}
 {% block javascripts %}
+<script>
+$('.custom-file-input').on('change', function(event) {
+            var inputFile = event.currentTarget;
+            if(inputFile.files.length===0){
+                $(inputFile).parent()
+                    .find('.custom-file-label')
+                    .html("Sélectionnez une ou plusieurs images");
+            }else {
+                var placeholder = "";
+                $.each(inputFile.files,function (index , value) {
+                    placeholder += "<i class='far fa-file-image'></i>"+" "+value.name+", ";
+                });
+                $(inputFile).parent()
+                    .find('.custom-file-label')
+                    .html(placeholder);
+            }
+        });
+</script>
 {% endblock %}

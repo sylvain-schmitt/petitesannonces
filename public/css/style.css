@@ -1,4 +1,4 @@
-
+/*admin panel*/
 .left{
 	width: 50px;
 	height: 100%;
@@ -50,3 +50,7 @@
 	.content {
 		margin-left: 50px;
 	}
+/*input file*/
+.custom-file-label:after{
+  content: "Choisir...";
+}
