@@ -56,7 +56,7 @@ $('.custom-file-input').on('change', function(event) {
             }else {
                 var placeholder = "";
                 $.each(inputFile.files,function (index , value) {
-                    placeholder += "<i class='far fa-file-image'></i>"+" "+value.name+", ";
+                    placeholder += "<i class='far fa-file-image'></i>"+" "+value.name+" ";
                 });
                 $(inputFile).parent()
                     .find('.custom-file-label')

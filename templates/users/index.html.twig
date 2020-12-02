@@ -16,9 +16,6 @@
                     </div>
                 {% endfor %}
 				<div class="content">
-					{% for message in app.flashes('message') %}
-						<div class="alert alert-success" role="alert">{{ message }}</div>
-					{% endfor %}
 					<h1>Profil de
 						{{ app.user.firstname }}
                     </h1>
@@ -55,7 +52,9 @@
 
 									{% endfor %}
 								</div>
-									<div class="container ">
+								{% if total <= 5 %}
+								{% else %}
+									<div class="container">
 										<div class="row justify-content-center">
 										<nav aria-label="...">
 											<ul class="pagination">
@@ -88,6 +87,7 @@
 											</ul>		
 										</nav>
 									</div>
+									{% endif %}
 								</div>
 							</div>
 							<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">

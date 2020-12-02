@@ -15,16 +15,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UsersController extends AbstractController
 {
+    private  $annoncesRepo;
+
+    public function __construct(AnnoncesRepository $annoncesRepo)
+    {
+        $this->annoncesRepo = $annoncesRepo;
+    }
+
     /**
      * @Route("/users", name="users")
      */
-    public function index(AnnoncesRepository $annoncesRepo, Request $request)
+    public function index(Request $request)
     {
         $limit = 5;
         $page = (int)$request->query->get("page", 1);
         $user = $this->getUser();
-        $annonces = $annoncesRepo->getUserPaginatedAnnonces($user, $page, $limit);
-        $total = $annoncesRepo->getUserTotalAnnonces($user);
+        $annonces = $this->annoncesRepo->getUserPaginatedAnnonces($user, $page, $limit);
+        $total = $this->annoncesRepo->getUserTotalAnnonces($user);
 
        return $this->render('users/index.html.twig',compact('annonces', 'total', 'limit', 'page'));
     }

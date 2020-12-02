@@ -66,7 +66,6 @@ window.onload = () => {
          document.querySelector(".modal-footer a").href = `/users/annonces/supprimer/${this.dataset.id}`
          document.querySelector(".modal-body").innerText = `Êtes-vous sûr(e) de vouloir supprimer l'annonce "${this.dataset.titre}"`
      })
-
- }
+    }
     
 }

@@ -13,16 +13,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends AbstractController
 {
+    private  $annoncesRepo;
+
+    public function __construct(AnnoncesRepository $annoncesRepo)
+    {
+        $this->annoncesRepo = $annoncesRepo;
+    }
+
     /**
      * @Route("/", name="app_home")
      */
-    public function index(AnnoncesRepository $annoncesRepo, Request $request)
+    public function index( Request $request)
     {
         
         $limit = 10;
         $page = (int)$request->query->get("page", 1);
-        $annonces = $annoncesRepo->getPaginatedAnnonces($page, $limit);
-        $total = $annoncesRepo->getTotalAnnonces();
+        $annonces = $this->annoncesRepo->getPaginatedAnnonces($page, $limit);
+        $total = $this->annoncesRepo->getTotalAnnonces();
 
         if (!$annonces) {
             throw new NotFoundHttpException('Aucunes annonces trouvée');
@@ -34,9 +41,9 @@ class MainController extends AbstractController
     /**
      * @Route("/details/{slug}", name="annonces_details")
      */
-    public function details($slug, AnnoncesRepository $annoncesRepo)
+    public function details($slug)
     {
-        $annonce = $annoncesRepo->findOneBy(['slug' => $slug]);
+        $annonce = $this->annoncesRepo->findOneBy(['slug' => $slug]);
 
         if (!$annonce) {
             throw new NotFoundHttpException('Pas d\'annonce trouvée');
@@ -52,9 +59,9 @@ class MainController extends AbstractController
     /**
      * @Route("/download/{slug}", name="annonces_download")
      */
-    public function download($slug, AnnoncesRepository $annoncesRepo)
+    public function download($slug)
     {
-        $annonce = $annoncesRepo->findOneBy(['slug' => $slug]);
+        $annonce = $this->annoncesRepo->findOneBy(['slug' => $slug]);
 
         if (!$annonce) {
             throw new NotFoundHttpException('Pas d\'annonce trouvée');
